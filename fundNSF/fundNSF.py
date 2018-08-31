@@ -395,7 +395,7 @@ if __name__ == '__main__':
     test_url = 'http://api.nsf.gov/services/v1/awards.xml?keyword=hysitron&printFields=id,title,agency,awardeeCity,awardeeName,awardeeStateCode,date,fundsObligatedAmt,piFirstName,piLastName'
     nsf = FundNSF()
     nsf.set_fields(abstractText=True)
-    nsf.set_params(dateStart='01/01/2018', dateEnd='04/15/2018')
+    nsf.set_params(dateStart='01/01/2018', dateEnd='02/15/2018')
     data = nsf.keyword_search('nano', '"pillar compression"')
     print(data['title'][0])
 
