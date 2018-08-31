@@ -26,7 +26,7 @@ installation through pip is recommended:
 
 
 ### Fields retrieved from search by default
-`
+
   'id': True,
   'title': True,
   'agency' : True,
@@ -37,10 +37,10 @@ installation through pip is recommended:
   'fundsObligatedAmt' : True,
   'piFirstName' : True,
   'piLastName' : True,
-`
+
 
 #### Other retrievable fields
-`
+
   'offset' : False
   'awardeeCountryCode' : False,
   'awardeeCounty' : False,
@@ -81,7 +81,7 @@ installation through pip is recommended:
   'piLastName' : True,
   'piPhone' : False,
   'piEmail' : False
-`
+
 
 
 ### Search Parameters
@@ -90,7 +90,7 @@ installation through pip is recommended:
 More search parameters can be found at
 https://www.research.gov/common/webapi/awardapisearch-v1.htm#request-parameters-notes
 
-`
+
 'offset': None, #Record offset -> page cfdaNumber
 'agency': None, # 'NSF' or 'NASA'
 'dateStart': None, # Start date for award date to search (ex. 12/31/2012)
@@ -105,94 +105,94 @@ https://www.research.gov/common/webapi/awardapisearch-v1.htm#request-parameters-
 'estimatedObligatedAmtTo' : None,
 'awardeeStateCode' : None,
 'awardeeName' : None
-`
+
 
 ## Methods defined here:
-`
-__init__(self)
-    Initialize self.  See help(type(self)) for accurate signature.
-`
 
-###### assemble_id_url(self, award_id)
+          __init__(self)
+                    Initialize self.  See help(type(self)) for accurate signature.
+
+
+### assemble_id_url(self, award_id)
 
 Takes award_id and returnds a request urllib using fields and params settings
     
-`
-assemble_id_url(award_id)
-    return string
-`
 
-######   assemble_kw_url(self, keywords)
+          assemble_id_url(award_id)
+                    return string
+
+
+###   assemble_kw_url(self, keywords)
 
 Takes list of keywords and returns a request urllib using fields param settings
 
-`assemble_url(param_dict)
-          return('request_url')`
+          assemble_url(param_dict)
+                    return('request_url')
 
-###### build_field_request(self)
+### build_field_request(self)
 
 builds url section for requesting Fields
 
-`build_field_request()
-          returns string`
+          build_field_request()
+                    returns string
 
-###### build_param_request(self)
+### build_param_request(self)
 
 builds url section for search parameters
-`
-build_param_request()
-          returns string`
 
-###### construct_data_xml(self, xml_file_list)
+          build_param_request()
+                    returns string
+
+### construct_data_xml(self, xml_file_list)
   
 Parses list of .xml data file objects using xml.eTree.ElementTree
 package returns dictionary of values.
   
- 'onstruct_data_xml(xml_file_list)
-          returns dictionary'
+          onstruct_data_xml(xml_file_list)
+                    returns dictionary
 
- ###### get_fields(self)
+ ### get_fields(self)
  returns search fields dictionary
 
- ###### get_params(self)
+ ### get_params(self)
  returns search parameter dictionary
 
-###### id_search(self, award_id)
+### id_search(self, award_id)
 Takes award_id and returns a dictionary containing information on
 that award using the parameter and field dictionaries
 
-`id_search(award_id):
-          return dict`
+          id_search(award_id):
+                    return dict
 
-###### keyword_search(self, *args)
+### keyword_search(self, *args)
 takes list of keywords to search nsf awards database for
 
-`get_keywords_data(['keywords'],
-                    abstractText=False)
-          return data_dictionary`
+          get_keywords_data(['keywords'],
+                             abstractText=False)
+                    return data_dictionary
 
-###### reset(self)
+### reset(self)
 Resets the fields and params dictionary back to default
 
           reset_fields()
-              return None
+                    return None
               
-###### send_request_xml(self, request_url)
+### send_request_xml(self, request_url)
 sends request to NSF Database and returns xml file object
 
           send_request('request_url')
-              return xml_file_obj
+                    return xml_file_obj
 
-###### set_fields(self, **kwargs)
+### set_fields(self, **kwargs)
 Takes boolean Keyword arguments for fields to be retrieved during the search
 
           sef_fields(abstractText=True)
-              return
+                    return
 
 visit: https://www.research.gov/common/webapi/awardapisearch-v1.htm
 for detailed discription of search fields
 
-###### set_params(self, **kwargs)
+### set_params(self, **kwargs)
 Takes Keyword arguments for search parameters being used
 
           set_params(dateStart='01/01/2017',
