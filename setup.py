@@ -8,7 +8,7 @@ setuptools.setup(
     version = '0.0.1',
     author='Jacob Noble',
     author_email='jacob.a.noble@gmail.com',
-    description='searches National Science Foundation awards database',
+    description='Searches National Science Foundation awards database',
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords=['api', 'National Science Foundation', 'NSF'],
