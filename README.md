@@ -14,14 +14,12 @@ installation through pip is recommended:
 ## Example
 
           from fundNSF import FundNSF
-          import pandas as pd
           
           nsf = FundNSF()
           nsf.set_fields(abstractText=True)
           nsf.set_params(dateStart='01/01/2017', dateEnd='12/31/2017') # enter date as 'mm/dd/yyyy'
           data = nsf.keyword_search('nano') #returns a Dictionary
-          df = pd.DataFrame(data)
-          print(df.head())
+          print(data['title'][0])
           
           award_data = nsf.id_search(df['id'][0])
           print(award_data['abstractText'])
