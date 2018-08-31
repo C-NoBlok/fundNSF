@@ -18,8 +18,7 @@ installation through pip is recommended:
           
           nsf = FundNSF()
           nsf.set_fields(abstractText=True)
-          nsf.set_params(dateStart='01/01/2017',          
-          dateEnd='12/31/2017') # enter date as 'mm/dd/yyyy'
+          nsf.set_params(dateStart='01/01/2017', dateEnd='12/31/2017') # enter date as 'mm/dd/yyyy'
           data = nsf.keyword_search('nano') #returns a Dictionary
           df = pd.DataFrame(data)
           print(df.head())
