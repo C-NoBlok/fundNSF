@@ -5,9 +5,14 @@ FundNSF is for performing searches on the National Science Foundations
 
 link: https://www.research.gov/common/webapi/awardapisearch-v1.htm
 
+##Installation
+
+installation through pip is recommended:
+
+'pip install fundNSF'
 
 ##Example
-
+`
 from fundNSF import FundNSF
 import pandas as pd
 
@@ -20,12 +25,11 @@ df = pd.DataFrame(data)
 print(df.head())
 
 award_data = nsf.id_search(df['id'][0])
-print(award_data['abstractText'])
+print(award_data['abstractText'])`
 
-____________________________________________________________________________
 
-Fields retrieved from search by default
----------------------------------------
+###Fields retrieved from search by default
+`
   'id': True,
   'title': True,
   'agency' : True,
@@ -36,9 +40,10 @@ Fields retrieved from search by default
   'fundsObligatedAmt' : True,
   'piFirstName' : True,
   'piLastName' : True,
+`
 
-Other retrievable fields
-------------------------
+####ther retrievable fields
+'
   'offset' : False
   'awardeeCountryCode' : False,
   'awardeeCounty' : False,
@@ -79,13 +84,16 @@ Other retrievable fields
   'piLastName' : True,
   'piPhone' : False,
   'piEmail' : False
+'
 
-Search Parameters
------------------
+
+###Search Parameters
+
 
 More search parameters can be found at
 https://www.research.gov/common/webapi/awardapisearch-v1.htm#request-parameters-notes
 
+`
 'offset': None, #Record offset -> page cfdaNumber
 'agency': None, # 'NSF' or 'NASA'
 'dateStart': None, # Start date for award date to search (ex. 12/31/2012)
@@ -100,19 +108,21 @@ https://www.research.gov/common/webapi/awardapisearch-v1.htm#request-parameters-
 'estimatedObligatedAmtTo' : None,
 'awardeeStateCode' : None,
 'awardeeName' : None
+`
 
-  Methods defined here:
-------------------------
+##Methods defined here:
 
-  __init__(self)
-      Initialize self.  See help(type(self)) for accurate signature.
+'__init__(self)
+    Initialize self.  See help(type(self)) for accurate signature.
+'
 
-  assemble_id_url(self, award_id)
-      Takes award_id and returnds a request urllib using fields and
-      params settings
-
-          assemble_id_url(award_id)
-              return string
+assemble_id_url(self, award_id)
+    Takes award_id and returnds a request urllib using fields and
+    params settings
+`
+assemble_id_url(award_id)
+    return string
+`
 
   assemble_kw_url(self, keywords)
       Takes list of keywords and returns a request urllib using fields
