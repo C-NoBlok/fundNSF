@@ -1,8 +1,6 @@
 import xml.etree.ElementTree as ET
-import pandas as pd
 import urllib.request
 import requests
-import bs4 as bs
 import io
 
 
@@ -232,9 +230,9 @@ class FundNSF:
         tree = ET.parse(xml_file)
         root = tree.getroot()
         print('collecting page: {}'.format(page_count))
-        print('Entries Found: {}'.format(len(root))) # -1 
+        print('Entries Found: {}'.format(len(root))) # -1
         page_count += 1
-        if len(root) ==25:
+        if len(root) == 25:
             while len(root)%25 == 0 and len(root) > 0:
                 #print(request_url + '&offset={}'.format(page_count))
                 r = requests.get(request_url + '&offset={}'.format(page_count))
@@ -243,15 +241,10 @@ class FundNSF:
                 tree = ET.parse(xml_file)
                 root = tree.getroot()
                 xml_file.seek(0)
-                for response in root:
-                    #print(len(response))
-                    for award in response:
-                        #print(award.tag + ': ' + award.text)
-                        pass
-            page_count += 1
-
-            print(print('collecting page: {}'.format(page_count)))
-            print('Entries Found: {}'.format(len(root)))
+                #print('end of loop')
+                print('collecting page: {}'.format(page_count))
+                print('Entries Found: {}'.format(len(root)))
+                page_count += 1
 
 
         return xml_files
@@ -402,10 +395,9 @@ if __name__ == '__main__':
     test_url = 'http://api.nsf.gov/services/v1/awards.xml?keyword=hysitron&printFields=id,title,agency,awardeeCity,awardeeName,awardeeStateCode,date,fundsObligatedAmt,piFirstName,piLastName'
     nsf = FundNSF()
     nsf.set_fields(abstractText=True)
-    nsf.set_params(dateStart='01/01/2018', dateEnd='01/15/2018')
+    nsf.set_params(dateStart='01/01/2018', dateEnd='04/15/2018')
     data = nsf.keyword_search('nano', '"pillar compression"')
-    df = pd.DataFrame(data)
-    print(df.head())
+    print(data['title'][0])
 
-    award_data = nsf.id_search(df['id'][0])
+    award_data = nsf.id_search(data['id'][0])
     print(award_data['abstractText'])
