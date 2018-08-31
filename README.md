@@ -5,13 +5,13 @@ FundNSF is for performing searches on the National Science Foundations
 
 link: https://www.research.gov/common/webapi/awardapisearch-v1.htm
 
-##Installation
+## Installation
 
 installation through pip is recommended:
 
-'pip install fundNSF'
+' pip install fundNSF '
 
-##Example
+## Example
 `
 from fundNSF import FundNSF
 import pandas as pd
