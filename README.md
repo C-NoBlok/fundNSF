@@ -1,6 +1,6 @@
 # FundNSF
 Python wrapper for National Science Foundations (NSF) award funding API.
-FundNSE is for performing searches on the National Science Foundations
+FundNSF is for performing searches on the National Science Foundations
 (NSF) awards database through their api.
 
 link:
