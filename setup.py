@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='fundNSF',
-    version = '0.0.2',
+    version = '0.0.3',
     author='Jacob Noble',
     author_email='jacob.a.noble@gmail.com',
     description='Searches National Science Foundation awards database',
@@ -14,10 +14,10 @@ setuptools.setup(
     keywords=['api', 'National Science Foundation', 'NSF'],
     url='https://github.com/C-NoBlok/fundNSF',
     packages=setuptools.find_packages(),
-    package_data={'fundNSF': ['LICENSE', 'README.md']},
-    install_requires = ['requests'],
-    classifers=[
-        'Programming Languae :: Python :: 3',
+    package_data={'fundNSF': ['LICENSE', 'README.md, CHANGELOG.md']},
+    install_requires = ['requests==2.18.4'],
+    classifiers=[
+        'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent'
     ],
