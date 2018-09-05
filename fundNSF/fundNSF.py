@@ -126,11 +126,11 @@ class FundNSF:
                 return data_dictionary
         '''
         keywords = args
-        request_url = self.assemble_kw_url(keywords)
+        request_url = self._assemble_kw_url(keywords)
         #print(request_url)
 
-        xml_files = self.send_request_xml(request_url)
-        data = self.construct_data_xml(xml_files)
+        xml_files = self._send_request_xml(request_url)
+        data = self._construct_data_xml(xml_files)
 
         return data
 
@@ -142,30 +142,30 @@ class FundNSF:
             id_search(award_id):
                 return dict
         '''
-        request_url = self.assemble_id_url(award_id)
-        xml_files = self.send_request_xml(request_url)
-        data = self.construct_data_xml(xml_files)
+        request_url = self._assemble_id_url(award_id)
+        xml_files = self._send_request_xml(request_url)
+        data = self._construct_data_xml(xml_files)
 
         return data
 
 
-    def assemble_id_url(self, award_id):
+    def _assemble_id_url(self, award_id):
         '''
         Takes award_id and returnds a request urllib using fields and
         params settings
 
-            assemble_id_url(award_id)
+            _assemble_id_url(award_id)
                 return string
         '''
 
         award_id_api = 'http://api.nsf.gov/services/v1/awards/{}.xml?'.format(award_id)
-        search_params = self.build_param_request()
-        include = self.build_field_request()
+        search_params = self._build_param_request()
+        include = self._build_field_request()
         request_url = award_id_api + include + search_params
         return request_url
 
 
-    def assemble_kw_url(self, keywords):
+    def _assemble_kw_url(self, keywords):
         '''
         Takes list of keywords  returns a request urllib using fields
         param settings
@@ -173,8 +173,8 @@ class FundNSF:
             assemble_url(param_dict)
                 return('request_url')
         '''
-        search_params = self.build_param_request()
-        include = self.build_field_request()
+        search_params = self._build_param_request()
+        include = self._build_field_request()
 
         keywords = '+'.join(keywords)
         request_url = \
@@ -183,11 +183,11 @@ class FundNSF:
 
         return request_url
 
-    def build_param_request(self):
+    def _build_param_request(self):
         '''
         builds url section for search parameters, returns string.
 
-            build_param_request()
+            _build_param_request()
                 returns string
         '''
         search_params = []
@@ -198,11 +198,11 @@ class FundNSF:
         search_params = '&' + '&'.join(search_params)
         return search_params
 
-    def build_field_request(self):
+    def _build_field_request(self):
         '''
         builds url section for requesting fields, returns string.
 
-                build_field_request()
+                _build_field_request()
                     returns string
         '''
         include = []
@@ -212,11 +212,11 @@ class FundNSF:
         include = '&printFields=' + ','.join(include)
         return include
 
-    def send_request_xml(self, request_url):
+    def _send_request_xml(self, request_url):
         '''
         sends request to NSF Database and returns xml file object.
 
-            send_request('request_url')
+            _send_request_xml('request_url')
                 return xml_file_obj
         '''
         xml_files = []
@@ -249,12 +249,12 @@ class FundNSF:
 
         return xml_files
 
-    def construct_data_xml(self, xml_file_list):
+    def _construct_data_xml(self, xml_file_list):
         '''
         Parses list of .xml data file objects using xml.eTree.ElementTree
         package returns dictionary of values.
 
-            construct_data_xml(xml_file_list)
+            _construct_data_xml(xml_file_list)
                 returns dictionary
         '''
         award_dict = {}
