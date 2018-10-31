@@ -1,6 +1,12 @@
-#fundNSF Change log
+# fundNSF Change log
+
 ---
-###version 0.0.3
+### Version 0.0.32
+
+* Updated requirements -> requests 2.20.0 for security
+
+---
+### version 0.0.3
 
 * updated README.md
 * added Pypi and Github links to README.md

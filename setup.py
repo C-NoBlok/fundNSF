@@ -15,7 +15,7 @@ setuptools.setup(
     url='https://github.com/C-NoBlok/fundNSF',
     packages=setuptools.find_packages(),
     package_data={'fundNSF': ['LICENSE', 'README.md, CHANGELOG.md']},
-    install_requires = ['requests==2.18.4'],
+    install_requires = ['requests==2.20.0'],
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
