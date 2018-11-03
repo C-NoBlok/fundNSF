@@ -264,8 +264,8 @@ class FundNSF:
 
         tree = ET.parse(xml_file)
         root = tree.getroot()
-        print('collecting page: {}'.format(page_count))
-        print('Entries Found: {}'.format(len(root)))  # -1
+        print('\rcollecting page: {} | Entries Found: {}'\
+                .format(page_count, len(root)), end='')  # -1
         page_count += 1
         if len(root) == 25:
             while len(root) % 25 == 0 and len(root) > 0:
@@ -277,10 +277,10 @@ class FundNSF:
                 root = tree.getroot()
                 xml_file.seek(0)
                 # print('end of loop')
-                print('collecting page: {}'.format(page_count))
-                print('Entries Found: {}'.format(len(root)))
+                print('\rcollecting page: {} | Entries Found: {}'\
+                    .format(page_count, len(root)), end='')
                 page_count += 1
-
+        print('\n')
         return xml_files
 
     def _construct_data_xml(self, xml_file_list):
