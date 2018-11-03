@@ -1,3 +1,4 @@
+"""Setup.py file for fundNSF."""
 import setuptools
 
 with open('README.md', 'r') as fh:
@@ -5,7 +6,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='fundNSF',
-    version='0.0.32',
+    version='0.0.322',
     author='Jacob Noble',
     author_email='jacob.a.noble@gmail.com',
     description='Searches National Science Foundation awards database',
