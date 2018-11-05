@@ -145,7 +145,7 @@ class FundNSF:
         in the value
         (ex. keyword_search(['nano', '"Pillar Compression"', 'afm']))
 
-            get_keywords_data(['keywords'],
+            get_keywords_data('keywords-1', 'keyword-2',
                                 abstractText=False)
 
                 return data_dictionary
@@ -264,8 +264,9 @@ class FundNSF:
 
         tree = ET.parse(xml_file)
         root = tree.getroot()
-        print('\rcollecting page: {} | Entries Found: {}'\
-                .format(page_count, len(root)), end='')  # -1
+        print('\rcollecting page: {} | Entries Found: {}'
+              .format(page_count, len(root)), end='')  # -1
+
         page_count += 1
         if len(root) == 25:
             while len(root) % 25 == 0 and len(root) > 0:
@@ -277,8 +278,8 @@ class FundNSF:
                 root = tree.getroot()
                 xml_file.seek(0)
                 # print('end of loop')
-                print('\rcollecting page: {} | Entries Found: {}'\
-                    .format(page_count, len(root)), end='')
+                print('\rcollecting page: {} | Entries Found: {}'
+                      .format(page_count, len(root)), end='')
                 page_count += 1
         print('\n')
         return xml_files
@@ -434,9 +435,10 @@ if __name__ == '__main__':
         fundsObligatedAmt,piFirstName,piLastName'
     nsf = FundNSF()
     nsf.set_fields(abstractText=True)
-    nsf.set_params(dateStart='01/01/2018', dateEnd='02/15/2018')
+    nsf.set_params(dateStart='01/01/2018', dateEnd='01/15/2018')
     data = nsf.keyword_search('nano', '"pillar compression"')
     print(data['title'][0])
 
     award_data = nsf.id_search(data['id'][0])
     print(award_data['abstractText'])
+    print(len(data))
