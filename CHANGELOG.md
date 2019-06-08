@@ -1,5 +1,11 @@
 # fundNSF Change log
 
+### Version 0.0.322
+---
+
+*   Added get_award_from(start_data) method
+*   Updated Readme
+
 ---
 ### Version 0.0.32
 
