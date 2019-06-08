@@ -24,18 +24,19 @@ installation through pip is recommended:
 ```python
 from fundNSF import FundNSF
 
-nsf = FundNSF()
-nsf.set_fields(abstractText=True)
-nsf.set_params(dateStart='01/01/2018', dateEnd='01/31/2018') # enter date as 'mm/dd/yyyy'
-data = nsf.keyword_search('nano') #returns a Dictionary
-print(data['title'][0])
+>>> nsf = FundNSF()
+>>> nsf.set_fields(abstractText=True)
+>>> nsf.fields['abstractText'] = False
+>>> nsf.set_params(dateStart='01/01/2018', dateEnd='01/31/2018') # enter date as 'mm/dd/yyyy'
+>>> data = nsf.keyword_search('nano') #returns a Dictionary
+>>> print(data['title'][0])
 
 CAREER:Active Nano-Acoustic Waveguide Matrix to Tackle Signal
 Processing Limits: Enabling Wideband and Nonreciprocal Integrated
 Communication Beyond the UHF
 
-award_data = nsf.id_search(data['id'][0])
-print(award_data['fundsObligatedAmt'][0])
+>>> award_data = nsf.id_search(data['id'][0])
+>>> print(award_data['fundsObligatedAmt'][0])
 
 500000
 ```
@@ -123,11 +124,19 @@ More search parameters can be found at the [NSF API Website](https://www.researc
 
 ## Methods:
 
+#### get_award_from(start_date)
+ start_date: string in the form of 'mm/dd/yyyy'
+ 
+ return: dictionary containing award data
+
+```python
+get_awards_from('12/25/2018')
+```
 
 #### keyword_search(*args)
 takes list of keywords to search nsf awards database for
 ```python
-get_keywords_data(['keywords'], abstractText=False)
+keyword_search('keyword_1', 'keyword_2')
 return data_dictionary
 ```
 
@@ -152,7 +161,7 @@ reset_fields()
 Takes boolean Keyword arguments for fields to be retrieved during the search
 
 ```python
-sef_fields(abstractText=True)
+set_fields(abstractText=True)
 ```
 visit: https://www.research.gov/common/webapi/awardapisearch-v1.htm
 for detailed discription of search fields

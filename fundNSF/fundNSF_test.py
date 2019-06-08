@@ -1,11 +1,12 @@
 """Test Module for fundNSF package."""
-
 from fundNSF import FundNSF
 
 # Create FundNSF() object
 
 nsf = FundNSF()
 test_files = []
+
+
 
 
 def test_assemble_id_url():
@@ -30,6 +31,14 @@ def test_assemble_kw_url():
     assert type(result) is str
     assert keyword in result
 
+def test_get_award_from():
+    """
+    Test get_award_from():
+    :return:
+    """
+    nsf.params['dateEnd'] = '05/10/2019'
+    result = nsf.get_awards_from('05/10/2019')
+    assert len(result) > 1
 
 def test_id_search():
     """Test Assemble_id_url() Method."""

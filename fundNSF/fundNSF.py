@@ -135,6 +135,24 @@ class FundNSF:
             'pdPIName': None
         }
 
+    def get_awards_from(self, start_date):
+        """
+        Get all awards from start_date to present
+        :param start_date: string in the form of 'mm/dd/yyyy'
+        :return: dict containing award data
+
+        >>> get_awards_from('12/25/2018')
+
+        """
+        self.params['dateStart'] = start_date
+
+        request_url = self.nsf_api + self._build_field_request() + self._build_param_request()
+
+        xml_files = self._send_request_xml(request_url)
+        data = self._construct_data_xml(xml_files)
+
+        return data
+
     def keyword_search(self, *args):
         """
         Take list of keywords to search nsf awards database.
@@ -259,6 +277,8 @@ class FundNSF:
         if page_count == 1:
             r = requests.get(request_url)
             # turns string into file object for passing to ET.parse()
+            #print(request_url)
+            #print(r.text)
             xml_file = io.StringIO(r.text)
             xml_files.append(xml_file)
 
@@ -434,11 +454,13 @@ if __name__ == '__main__':
         printFields=id,title,agency,awardeeCity,awardeeName,awardeeStateCode,date,\
         fundsObligatedAmt,piFirstName,piLastName'
     nsf = FundNSF()
-    nsf.set_fields(abstractText=True)
-    nsf.set_params(dateStart='01/01/2018', dateEnd='01/15/2018')
-    data = nsf.keyword_search('nano', '"pillar compression"')
-    print(data['title'][0])
+    #nsf.set_fields(abstractText=True)
+    #nsf.set_params(dateStart='01/01/2018', dateEnd='01/15/2018')
+    #data = nsf.keyword_search('nano', '"pillar compression"')
+    nsf.fields['abstractText'] = True
+    data = nsf.get_awards_from('03/20/2018')
+    print(data['Title'][0])
 
-    award_data = nsf.id_search(data['id'][0])
-    print(award_data['abstractText'])
+    #award_data = nsf.id_search(data['id'][0])
+    #print(award_data['abstractText'])
     print(len(data))
