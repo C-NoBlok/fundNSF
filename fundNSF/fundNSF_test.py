@@ -1,6 +1,6 @@
 """Test Module for fundNSF package."""
 from fundNSF import FundNSF
-
+import json
 # Create FundNSF() object
 
 nsf = FundNSF()
@@ -47,6 +47,19 @@ def test_id_search():
     assert result is not None
     assert result['title'][0] == 'REU Site: Creative Approaches to ' +\
         'Materials Design and Processing'
+
+def test_get_report():
+    id = 1052893
+    report = nsf.get_report(id)
+    assert type(report) == str
+    assert len(report) > 0
+    print(report)
+
+    id2 = 1757936
+    report2 = nsf.get_report(id2)
+    assert report2 is None
+
+
 
 
 def test_keyword_search():

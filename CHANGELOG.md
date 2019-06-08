@@ -1,5 +1,11 @@
 # fundNSF Change log
 
+### Version 0.0.336
+---
+
+* Added get_report() method to retrieve outcome report given an award_id
+
+
 ### Version 0.0.335
 ---
 
