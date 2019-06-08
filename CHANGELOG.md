@@ -1,5 +1,16 @@
 # fundNSF Change log
 
+### Version 0.0.335
+---
+
+* Added build.py file to automate incrementing version number and pushing to pypi
+
+### Version 0.0.322
+---
+
+*   Added get_award_from(start_data) method
+*   Updated Readme
+
 ---
 ### Version 0.0.32
 
