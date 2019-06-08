@@ -1,5 +1,10 @@
 # fundNSF Change log
 
+### Version 0.0.335
+---
+
+* Added build.py file to automate incrementing version number and pushing to pypi
+
 ### Version 0.0.322
 ---
 
