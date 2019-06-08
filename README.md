@@ -137,23 +137,32 @@ get_awards_from('12/25/2018')
 takes list of keywords to search nsf awards database for
 ```python
 keyword_search('keyword_1', 'keyword_2')
-return data_dictionary
 ```
-
 
 #### id_search(award_id)
 Takes award_id and returns a dictionary containing information on
 that award using the parameter and field dictionaries
 ```python
-id_search(award_id):
-return dict
+id_search(award_id)
+```
+
+#### get_report(award_id)
+
+Retrives Project Output Report
+
+award_id: award_id to retrieve report for
+
+return: returns string (report) or list of strings (reports) or None
+
+```python
+>>> report = get_report(1052893)
 ```
 
 
 #### reset()
 Resets the fields and params dictionary back to default
 ```python
-reset_fields()
+>>> reset_fields()
 ```           
 
 
@@ -161,7 +170,7 @@ reset_fields()
 Takes boolean Keyword arguments for fields to be retrieved during the search
 
 ```python
-set_fields(abstractText=True)
+>>> set_fields(abstractText=True)
 ```
 visit: https://www.research.gov/common/webapi/awardapisearch-v1.htm
 for detailed discription of search fields
@@ -170,14 +179,14 @@ for detailed discription of search fields
 #### set_params(self, **kwargs)
 Takes Keyword arguments for search parameters being used
 ```python
-set_params(dateStart='01/01/2017', dateEnd='12/31/2017', awardeeStateCode='WI')
+>>> set_params(dateStart='01/01/2017', dateEnd='12/31/2017', awardeeStateCode='WI')
 ```
 visit the [NSF API Website](https://www.research.gov/common/webapi/awardapisearch-v1.htm#request-parameters-notes) for better discription of search parameters
 
 
-#### get_fields(self)
+#### get_fields()
 returns search fields dictionary
 
 
-#### get_params(self)
+#### get_params()
 returns search parameter dictionary

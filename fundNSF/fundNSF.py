@@ -22,6 +22,7 @@ print(award_data['abstractText'])
 """
 
 import xml.etree.ElementTree as ET
+import json
 # import urllib.request
 import requests
 import io
@@ -192,6 +193,33 @@ class FundNSF:
         data = self._construct_data_xml(xml_files)
 
         return data
+
+    def get_report(self, award_id):
+        """
+        Retrives Project Output Report
+        :param award_id:
+        :return: returns string (report) or list of strings (reports) or None
+        """
+        request_url = 'http://api.nsf.gov/services/v1/awards/{}/projectoutcomes.json'.format(award_id)
+        r = requests.get(request_url)
+        awards = r.json()['response']['award']
+
+        if len(awards) == 1:
+            if 'projectOutComesReport' in awards[0]:
+                report = awards[0]['projectOutComesReport']
+                return report
+            else:
+                return None
+
+        elif len(awards) > 1:
+            reports = []
+            for report in awards:
+                reports.append(report['projectOutComesReport'])
+            return reports
+
+        else:
+            return None
+
 
     def _assemble_id_url(self, award_id):
         """
