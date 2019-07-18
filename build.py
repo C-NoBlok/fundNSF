@@ -3,6 +3,9 @@ import os
 import fileinput
 import re
 
+import wheel
+import twine
+
 parsed_version = None
 version_number = None
 
