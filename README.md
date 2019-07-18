@@ -25,8 +25,8 @@ installation through pip is recommended:
 from fundNSF import FundNSF
 
 >>> nsf = FundNSF()
->>> nsf.set_fields(abstractText=True)
->>> nsf.fields['abstractText'] = False
+>>> nsf.set_fields(abstractText=True) # Data will now include the abstract text
+>>> nsf.fields['abstractText'] = False # Data will now not include abstract text
 >>> nsf.set_params(dateStart='01/01/2018', dateEnd='01/31/2018') # enter date as 'mm/dd/yyyy'
 >>> data = nsf.keyword_search('nano') #returns a Dictionary
 >>> print(data['title'][0])
@@ -39,6 +39,8 @@ Communication Beyond the UHF
 >>> print(award_data['fundsObligatedAmt'][0])
 
 500000
+
+>>> data = nsf.get_awards_from('07/17/2019')
 ```
 ### Used below fields as keywords in set_fields() method to set the fields being retireved.  
 ##### Fields retrieved from search by default
@@ -122,31 +124,45 @@ More search parameters can be found at the [NSF API Website](https://www.researc
 ```
 
 
-## Methods:
+# Methods:
 
-#### get_award_from(start_date)
+## get_award_from(start_date, batch_func=None, batch_number=10)
+ 
  start_date: string in the form of 'mm/dd/yyyy'
  
+ batch_func: Function to user for batch operations
+
+ batch_number: number of pages (25 awards per page) to perform batch_func on
+ 
  return: dictionary containing award data
+
+ If batch functions is not none function will return True as data will be handled by batch_func
 
 ```python
 get_awards_from('12/25/2018')
 ```
 
-#### keyword_search(*args)
+## keyword_search(*args, batch_func=None, batch_number=10)
 takes list of keywords to search nsf awards database for
+
+ batch_func: Function to user for batch operations
+
+ batch_number: number of pages (25 awards per page) to perform batch_func on
+
+ If batch functions is not none function will return True as data will be handled by batch_func
+
 ```python
 keyword_search('keyword_1', 'keyword_2')
 ```
 
-#### id_search(award_id)
+## id_search(award_id)
 Takes award_id and returns a dictionary containing information on
 that award using the parameter and field dictionaries
 ```python
 id_search(award_id)
 ```
 
-#### get_report(award_id)
+## get_report(award_id)
 
 Retrives Project Output Report
 
@@ -159,14 +175,14 @@ return: returns string (report) or list of strings (reports) or None
 ```
 
 
-#### reset()
+## reset()
 Resets the fields and params dictionary back to default
 ```python
 >>> reset_fields()
 ```           
 
 
-#### set_fields(self, **kwargs)
+## set_fields(self, **kwargs)
 Takes boolean Keyword arguments for fields to be retrieved during the search
 
 ```python
@@ -176,7 +192,7 @@ visit: https://www.research.gov/common/webapi/awardapisearch-v1.htm
 for detailed discription of search fields
 
 
-#### set_params(self, **kwargs)
+## set_params(self, **kwargs)
 Takes Keyword arguments for search parameters being used
 ```python
 >>> set_params(dateStart='01/01/2017', dateEnd='12/31/2017', awardeeStateCode='WI')
@@ -184,9 +200,9 @@ Takes Keyword arguments for search parameters being used
 visit the [NSF API Website](https://www.research.gov/common/webapi/awardapisearch-v1.htm#request-parameters-notes) for better discription of search parameters
 
 
-#### get_fields()
+## get_fields()
 returns search fields dictionary
 
 
-#### get_params()
+## get_params()
 returns search parameter dictionary
