@@ -1,4 +1,8 @@
 # fundNSF Change log
+### Version 0.0.337
+---
+
+* Added Batch Processing feature to get_data_from() and keyword_search() methods
 
 ### Version 0.0.336
 ---

@@ -136,7 +136,7 @@ class FundNSF:
             'pdPIName': None
         }
 
-    def get_awards_from(self, start_date):
+    def get_awards_from(self, start_date, batch_func=None, batch_number=10):
         """
         Get all awards from start_date to present
         :param start_date: string in the form of 'mm/dd/yyyy'
@@ -149,12 +149,14 @@ class FundNSF:
 
         request_url = self.nsf_api + self._build_field_request() + self._build_param_request()
 
-        xml_files = self._send_request_xml(request_url)
-        data = self._construct_data_xml(xml_files)
+        # xml_files = self._send_request_xml(request_url, batch_func=None, batch_number=1000)
+        # data = self._construct_data_xml(xml_files)
+
+        data = self._send_request_xml(request_url, batch_func=batch_func, batch_number=batch_number)
 
         return data
 
-    def keyword_search(self, *args):
+    def keyword_search(self, *args, batch_func=None, batch_number=10):
         """
         Take list of keywords to search nsf awards database.
 
@@ -169,12 +171,15 @@ class FundNSF:
 
                 return data_dictionary
         """
+        batch_func_ = batch_func
         keywords = args
         request_url = self._assemble_kw_url(keywords)
         # print(request_url)
 
-        xml_files = self._send_request_xml(request_url)
-        data = self._construct_data_xml(xml_files)
+        # xml_files = self._send_request_xml(request_url, batch_func=None, batch_number=1000)
+        # data = self._construct_data_xml(xml_files)
+
+        data = self._send_request_xml(request_url, batch_func=batch_func, batch_number=batch_number)
 
         return data
 
@@ -290,7 +295,7 @@ class FundNSF:
         include = '&printFields=' + ','.join(include)
         return include
 
-    def _send_request_xml(self, request_url):
+    def _send_request_xml(self, request_url, batch_func=None, batch_number=5):
         """
         Send request to NSF Database.
 
@@ -313,7 +318,7 @@ class FundNSF:
         tree = ET.parse(xml_file)
         root = tree.getroot()
         print('\rcollecting page: {} | Entries Found: {}'
-              .format(page_count, len(root)), end='')  # -1
+              .format(page_count, len(root)), end='')  # -1            
 
         page_count += 1
         if len(root) == 25:
@@ -328,9 +333,24 @@ class FundNSF:
                 # print('end of loop')
                 print('\rcollecting page: {} | Entries Found: {}'
                       .format(page_count, len(root)), end='')
+
+                if batch_func is not None and page_count % batch_number == 0:
+                    print('\nRunning Batch Process')
+                    data = self._construct_data_xml(xml_files)
+                    batch_func(data)
+                    xml_files = []
+
                 page_count += 1
         print('\n')
-        return xml_files
+
+        if batch_func is not None:
+            print('Running Batch Process')
+            data = self._construct_data_xml(xml_files)
+            batch_func(data)
+            return True
+        else:
+            data = self._construct_data_xml(xml_files)
+            return data
 
     def _construct_data_xml(self, xml_file_list):
         """
@@ -477,17 +497,28 @@ class FundNSF:
                 """
 
 
+
 if __name__ == '__main__':
     test_url = 'http://api.nsf.gov/services/v1/awards.xml?keyword=hysitron&\
         printFields=id,title,agency,awardeeCity,awardeeName,awardeeStateCode,date,\
         fundsObligatedAmt,piFirstName,piLastName'
+    
     nsf = FundNSF()
+    
     #nsf.set_fields(abstractText=True)
     #nsf.set_params(dateStart='01/01/2018', dateEnd='01/15/2018')
     #data = nsf.keyword_search('nano', '"pillar compression"')
-    nsf.fields['abstractText'] = True
-    data = nsf.get_awards_from('03/20/2018')
-    print(data['Title'][0])
+    
+    #nsf.fields['abstractText'] = True
+    #data = nsf.get_awards_from('03/20/2018')
+    #print(data['Title'][0])
+
+    def my_batch_func(data):
+        print(type(data))
+        print(len(data['title']))
+        print(data['title'][0])
+
+    batch_status = nsf.get_awards_from('01/01/1981', batch_func=my_batch_func, batch_number=10)
 
     #award_data = nsf.id_search(data['id'][0])
     #print(award_data['abstractText'])
