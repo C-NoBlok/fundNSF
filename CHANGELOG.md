@@ -1,4 +1,9 @@
 # fundNSF Change log
+
+### Version 0.0.339
+
+* Changed data output to output a list of award dictionaries instead of a dictionary of lists.
+
 ### Version 0.0.338
 ---
 

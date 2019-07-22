@@ -199,7 +199,7 @@ class FundNSF:
 
         data = self._send_request_xml(request_url)
 
-        return data
+        return data[0]
 
     def get_report(self, award_id):
         """
@@ -368,17 +368,23 @@ class FundNSF:
             xml_file.seek(0)
             tree = ET.parse(xml_file)
             root = tree.getroot()
+            award_list = []
             for response in root:
+                temp_dict = {}
                 for award in response:
                     try:
-                        award_dict[award.tag].append(award.text)
+                        # temp_dict[award.tag].append(award.text)
+                        temp_dict[award.tag] = award.text
                     except KeyError:
-                        award_dict[award.tag] = [award.text]
+                        print("KeyError")
+                    #     temp_dict[award.tag] = [award.text]
 
-            if 'entry' in award_dict.keys():
-                del award_dict['entry']
+                if 'entry' in temp_dict.keys():
+                    del temp_dict['entry']
+                
+                award_list.append(temp_dict)
 
-        return award_dict
+        return award_list
 
     def reset(self):
         """
@@ -514,7 +520,9 @@ if __name__ == '__main__':
     # nsf.fields['abstractText'] = True
     # data = nsf.get_awards_from('03/20/2018')
 
-    print(data['title'][0])
+    print(data[0]['title'])
+
+    #print(data)
 
     # def my_batch_func(data):
     #     print(type(data))
@@ -523,6 +531,7 @@ if __name__ == '__main__':
 
     # batch_status = nsf.get_awards_from('01/01/1981', batch_func=my_batch_func, batch_number=10)
 
-    award_data = nsf.id_search(data['id'][0])
+    award_data = nsf.id_search(data[0]['id'])
+    print(award_data.keys())
     print(award_data['abstractText'])
     print(len(data))
