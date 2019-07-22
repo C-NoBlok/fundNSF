@@ -7,7 +7,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='fundNSF',
-    version='0.0.329',
+    version='0.0.330',
     author='Jacob Noble',
     author_email='jacob.a.noble@gmail.com',
     description='Searches National Science Foundation awards database',
