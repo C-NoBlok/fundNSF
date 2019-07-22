@@ -1,4 +1,9 @@
 # fundNSF Change log
+### Version 0.0.338
+---
+
+* Fixed id_search() function.
+
 ### Version 0.0.337
 ---
 

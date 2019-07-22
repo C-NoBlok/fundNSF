@@ -194,8 +194,10 @@ class FundNSF:
                 return dict
         """
         request_url = self._assemble_id_url(award_id)
-        xml_files = self._send_request_xml(request_url)
-        data = self._construct_data_xml(xml_files)
+        # xml_files = self._send_request_xml(request_url)
+        # data = self._construct_data_xml(xml_files)
+
+        data = self._send_request_xml(request_url)
 
         return data
 
@@ -505,21 +507,22 @@ if __name__ == '__main__':
     
     nsf = FundNSF()
     
-    #nsf.set_fields(abstractText=True)
-    #nsf.set_params(dateStart='01/01/2018', dateEnd='01/15/2018')
-    #data = nsf.keyword_search('nano', '"pillar compression"')
-    
-    #nsf.fields['abstractText'] = True
-    #data = nsf.get_awards_from('03/20/2018')
-    #print(data['Title'][0])
+    nsf.set_fields(abstractText=True)
+    nsf.set_params(dateStart='01/01/2018', dateEnd='01/15/2018')
+    data = nsf.keyword_search('nano', '"pillar compression"')
 
-    def my_batch_func(data):
-        print(type(data))
-        print(len(data['title']))
-        print(data['title'][0])
+    # nsf.fields['abstractText'] = True
+    # data = nsf.get_awards_from('03/20/2018')
 
-    batch_status = nsf.get_awards_from('01/01/1981', batch_func=my_batch_func, batch_number=10)
+    print(data['title'][0])
 
-    #award_data = nsf.id_search(data['id'][0])
-    #print(award_data['abstractText'])
+    # def my_batch_func(data):
+    #     print(type(data))
+    #     print(len(data['title']))
+    #     print(data['title'][0])
+
+    # batch_status = nsf.get_awards_from('01/01/1981', batch_func=my_batch_func, batch_number=10)
+
+    award_data = nsf.id_search(data['id'][0])
+    print(award_data['abstractText'])
     print(len(data))
