@@ -323,7 +323,7 @@ class FundNSF:
               .format(page_count, len(root)), end='')  # -1            
 
         page_count += 1
-        if len(root) == 25:
+        if len(root) >= 25:
             while len(root) >= 25:
                 # print(request_url + '&offset={}'.format(page_count))
                 r = requests.get(request_url + '&offset={}'.format(page_count))
@@ -338,6 +338,7 @@ class FundNSF:
 
                 if batch_func is not None and page_count % batch_number == 0:
                     print('\nRunning Batch Process')
+                    print(len(xml_files))
                     data = self._construct_data_xml(xml_files)
                     batch_func(data)
                     xml_files = []
@@ -346,7 +347,7 @@ class FundNSF:
         print('\n')
 
         if batch_func is not None:
-            print('Running Batch Process')
+            print('Running Final Batch Process')
             data = self._construct_data_xml(xml_files)
             batch_func(data)
             return True
@@ -364,11 +365,12 @@ class FundNSF:
                 returns dictionary
         """
         award_dict = {}
+        award_list = []
         for xml_file in xml_file_list:
             xml_file.seek(0)
             tree = ET.parse(xml_file)
             root = tree.getroot()
-            award_list = []
+
             for response in root:
                 temp_dict = {}
                 for award in response:
@@ -383,8 +385,8 @@ class FundNSF:
 
                 # if 'entry' in temp_dict.keys():
                 #     del temp_dict['entry']
-                
-                award_list.append(temp_dict)
+                if len(temp_dict) > 0:
+                    award_list.append(temp_dict)
 
         return award_list
 
