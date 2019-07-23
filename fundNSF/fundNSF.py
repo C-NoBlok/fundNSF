@@ -324,7 +324,7 @@ class FundNSF:
 
         page_count += 1
         if len(root) == 25:
-            while len(root) % 25 == 0 and len(root) > 0:
+            while len(root) >= 25:
                 # print(request_url + '&offset={}'.format(page_count))
                 r = requests.get(request_url + '&offset={}'.format(page_count))
                 xml_file = io.StringIO(r.text)
