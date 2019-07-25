@@ -322,11 +322,10 @@ class FundNSF:
         print('\rcollecting page: {} | Entries Found: {}'
               .format(page_count, len(root)), end='')  # -1            
 
-        page_count += 1
         if len(root) >= 25:
             while len(root) >= 25:
                 # print(request_url + '&offset={}'.format(page_count))
-                r = requests.get(request_url + '&offset={}'.format(page_count))
+                r = requests.get(request_url + '&offset={}'.format(page_count*25 + 1)) # offset is number of records not pages
                 xml_file = io.StringIO(r.text)
                 xml_files.append(xml_file)
                 tree = ET.parse(xml_file)
