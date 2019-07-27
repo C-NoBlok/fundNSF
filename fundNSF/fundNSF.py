@@ -196,10 +196,10 @@ class FundNSF:
         request_url = self._assemble_id_url(award_id)
         # xml_files = self._send_request_xml(request_url)
         # data = self._construct_data_xml(xml_files)
+        # print(request_url)
+        data_ = self._send_request_xml(request_url)
 
-        data = self._send_request_xml(request_url)
-
-        return data[0]
+        return data_
 
     def get_report(self, award_id):
         """
